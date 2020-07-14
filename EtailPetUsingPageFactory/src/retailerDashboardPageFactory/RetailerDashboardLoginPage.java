@@ -23,6 +23,12 @@ public class RetailerDashboardLoginPage {
 
 	@FindBy(xpath = "//input[@value='Sign In']")
 	WebElement signInButton;
+	
+	@FindBy(xpath = "//span[@class='user-name']")
+	WebElement userProfile;
+	
+	@FindBy(xpath = "//p[@class='text-danger']")
+	WebElement errorMessage;
 
 	public void loginCredentials(String username, String password) {
 		this.setUsername(username);
@@ -43,6 +49,14 @@ public class RetailerDashboardLoginPage {
 
 	private void setUsername(String username) {
 		usernameField.sendKeys(username);
+	}
+
+	public String getHomePage() {
+		return userProfile.getText();
+	}
+
+	public String getErrorMessage() {
+		return errorMessage.getText();
 	}
 
 }

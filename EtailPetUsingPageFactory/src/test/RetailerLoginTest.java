@@ -3,6 +3,7 @@ package test;
 import org.testng.annotations.Test;
 
 import retailerDashboardPageFactory.RetailerDashboardLoginPage;
+import settings.Constants;
 
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -19,12 +20,11 @@ public class RetailerLoginTest {
 
 	@BeforeTest
 	public void setUp() {
-		System.setProperty("webdriver.chrome.driver",
-				"C://Users//binuababu//Downloads//Chrome Driver Version 83//chromedriver.exe");
+		System.setProperty(Constants.DRIVER_KEY, Constants.DRIVER_PATH);
 		driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(1000, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
-		driver.get("https://awesomepets.dev.etailpet.com/site-admin/login/");
+		driver.get(Constants.WEBSITE_URL);
 	}
 
 	/*
@@ -34,12 +34,12 @@ public class RetailerLoginTest {
 	@Test
 	public void testValidLogin() {
 		RetailerDashboardLoginPage loginPage = new RetailerDashboardLoginPage(driver);
-		loginPage.loginCredentials("refodazaa@getnada.com", "test@100");
-		String username = driver.findElement(By.xpath("//span[@class='user-name']")).getText();
-		if (username.contains("Hi")) {
-			System.out.println("Login Successfull");
+		loginPage.loginCredentials(Constants.EMAILADDRESS, Constants.PASSWORD);
+		String username = loginPage.getHomePage();
+		if (username.contains(Constants.USER_PROFILE)) {
+			System.out.println(Constants.LOGIN_SUCCESS);
 		} else {
-			System.out.println("Login Failed");
+			System.out.println(Constants.LOGIN_FAILED );
 		}
 	}
 	
@@ -51,10 +51,10 @@ public class RetailerLoginTest {
 	@Test (priority = 0)
 	public void testInvalidLogin() {
 		RetailerDashboardLoginPage loginPage = new RetailerDashboardLoginPage(driver);
-		loginPage.loginCredentials("test@gmail.com", "test@100");
-		String errorMessage = driver.findElement(By.xpath("//p[@class='text-danger']")).getText();
-		if (errorMessage.equals("Please enter correct email and password.")) {
-			System.out.println("Invalid Login");
+		loginPage.loginCredentials(Constants.IN_EMAILADDRESS, Constants.IN_PASSWORD);
+		String errorMessage = loginPage.getErrorMessage();
+		if (errorMessage.equals(Constants.ERROR_MESSAGE)) {
+			System.out.println(Constants.LOGIN_FAILED);
 		}
 	}
 	
