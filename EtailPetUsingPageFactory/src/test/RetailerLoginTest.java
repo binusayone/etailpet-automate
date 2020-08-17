@@ -30,7 +30,7 @@ public class RetailerLoginTest {
 	/*
 	 * TESTCASE – 1 [ Enter Correct Email and Password ]
 	 */
-	
+
 	@Test
 	public void testValidLogin() {
 		RetailerDashboardLoginPage loginPage = new RetailerDashboardLoginPage(driver);
@@ -39,16 +39,15 @@ public class RetailerLoginTest {
 		if (username.contains(Constants.USER_PROFILE)) {
 			System.out.println(Constants.LOGIN_SUCCESS);
 		} else {
-			System.out.println(Constants.LOGIN_FAILED );
+			System.out.println(Constants.LOGIN_FAILED);
 		}
 	}
-	
-	
+
 	/*
 	 * TESTCASE – 2 [ Invalid Username and invalid password ]
 	 */
-	
-	@Test (priority = 0)
+
+	@Test(priority = 0)
 	public void testInvalidLogin() {
 		RetailerDashboardLoginPage loginPage = new RetailerDashboardLoginPage(driver);
 		loginPage.loginCredentials(Constants.IN_EMAILADDRESS, Constants.IN_PASSWORD);
@@ -57,7 +56,7 @@ public class RetailerLoginTest {
 			System.out.println(Constants.LOGIN_FAILED);
 		}
 	}
-	
+
 	@AfterTest
 	public void closeBrowser() {
 		driver.close();
